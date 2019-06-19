@@ -56,6 +56,15 @@ class App extends Component {
 
   searchPost(text){
      console.log(text);
+     let filtered;
+    axios
+    .get('http://localhost:9090/posts')
+    .then(response => {
+      let data = response.data;
+      let regex = new RegExp(decodeURI(text),'gi');
+      filtered = data.filter(dt => dt.text.match(regex));
+      this.setState({ posts: filtered });
+    });
   }
 
   render() {
